@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock-Paper-Scissors-Lizard-Spock</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Rock-Paper-Scissors-Lizard-Spock</h1>
+    <div>
+        <button onclick="playGame('rock')">Rock</button>
+        <button onclick="playGame('Spock')">Spock</button>
+        <button onclick="playGame('paper')">Paper</button>
+        <button onclick="playGame('lizard')">Lizard</button>
+        <button onclick="playGame('scissors')">Scissors</button>
+    </div>
+    <h2 id="result"></h2>
+    <p id="computer-move"></p>
+    <p id="your-move"></p>
+
+    <script>
+        const moves = ["rock", "Spock", "paper", "lizard", "scissors"];
+        const rules = {
+            "rock": ["scissors", "lizard"],
+            "Spock": ["scissors", "rock"],
+            "paper": ["rock", "Spock"],
+            "lizard": ["Spock", "paper"],
+            "scissors": ["paper", "lizard"]
+        };
+
+        function getComputerMove() {
+            const randomIndex = Math.floor(Math.random() * moves.length);
+            return moves[randomIndex];
+        }
+
+        function determineWinner(userMove, computerMove) {
+            if (userMove === computerMove) {
+                return "It's a tie!";
+            } else if (rules[userMove].includes(computerMove)) {
+                return "You win!";
+            } else {
+                return "You lose!";
+            }
+        }
+
+        function playGame(userMove) {
+            const computerMove = getComputerMove();
+            document.getElementById("your-move").innerText = `Your move: ${userMove}`;
+            document.getElementById("computer-move").innerText = `Computer move: ${computerMove}`;
+
+            const result = determineWinner(userMove, computerMove);
+            document.getElementById("result").innerText = result;
+        }
+    </script>
+</body>
+</html>
